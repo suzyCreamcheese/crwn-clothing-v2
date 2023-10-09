@@ -6,6 +6,7 @@ import {
 
 import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
+
 import './sign-up-form.styles.scss';
 
 const defaultFormFields = {
@@ -18,8 +19,6 @@ const defaultFormFields = {
 const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
-
-  console.log(formFields);
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
@@ -36,9 +35,10 @@ const SignUpForm = () => {
         email,
         password
       );
-      const userDocRef = await createUserDocumentFromAuth(user, {
+      await createUserDocumentFromAuth(user, {
         displayName,
       });
+
       resetFormFields();
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
